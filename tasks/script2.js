@@ -40,7 +40,11 @@ const rl = readline.createInterface({
   });
   
   rl.question("String: ", (string) => {
+    console.time();
+    const mem = process.memoryUsage().heapUsed;
     processRecursive(string);
+    console.log((process.memoryUsage().heapUsed - mem) / 1024 / 1024);
+    console.timeEnd();
     console.log(result);
     rl.close();
   });
