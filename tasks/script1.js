@@ -4,20 +4,22 @@ function loopComma(str)
 { 
     const n = str.length; 
     const opsize = Math.pow(2, n - 1); 
-  
+    let result = [];  
     for (let counter = 0; counter < opsize; counter++)  
-    { 
+    {         
         let temp = [];
-        
+
         for (let j = 0; j < n; j++)  
         { 
-            temp += str[j];
+            temp.push(str[j]);
 
             if (counter & (1 << j)) 
-            temp += '.'; 
+            temp.push('.'); 
         } 
-        console.log(temp);
+
+        result.push(temp.join(''));
     } 
+    console.log(result);
 } 
 
 const rl = readline.createInterface({
@@ -25,7 +27,7 @@ const rl = readline.createInterface({
     output: process.stdout
   });
   
-  rl.question("String: ", (string) => {
+  rl.question("String: ", (string) => { 
     loopComma(string);
     rl.close();
   });

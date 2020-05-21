@@ -1,13 +1,15 @@
 const readline = require('readline');
 
+let result = [];
+
 function recursiveComma(str, buff, i, j, n) 
 { 
     if (i == n) 
     { 
         buff[j] = ''; 
-        console.log(buff.join(''));
+        result.push(buff.join(''));
         return; 
-    } 
+    }
   
     buff[j] = str[i]; 
     recursiveComma(str, buff, i + 1, j + 1, n); 
@@ -16,6 +18,7 @@ function recursiveComma(str, buff, i, j, n)
     buff[j+1] = str[i]; 
   
     recursiveComma(str, buff, i + 1 , j + 2, n); 
+
 } 
    
 function processRecursive(str) 
@@ -31,7 +34,6 @@ function processRecursive(str)
     recursiveComma(str, buf, 1, 1, n); 
 } 
 
-
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -39,5 +41,6 @@ const rl = readline.createInterface({
   
   rl.question("String: ", (string) => {
     processRecursive(string);
+    console.log(result);
     rl.close();
   });
