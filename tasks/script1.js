@@ -4,22 +4,19 @@ function loopComma(str)
 { 
     const n = str.length; 
     const opsize = Math.pow(2, n - 1); 
-    let result = [];  
+    let temp = '';  
     for (let counter = 0; counter < opsize; counter++)  
     {         
-        let temp = [];
-
         for (let j = 0; j < n; j++)  
         { 
-            temp.push(str[j]);
+            temp += str[j];
 
             if (counter & (1 << j)) 
-            temp.push('.'); 
-        } 
-
-        result.push(temp.join(''));
+            temp += '.'; 
+        }
+        temp += ' ';  
     } 
-    console.log(result);
+    //console.log(temp);
 } 
 
 const rl = readline.createInterface({
