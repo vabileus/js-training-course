@@ -1,24 +1,22 @@
 const readline = require('readline');
 
-let result = [];
-
-function recursiveComma(str, buff, i, j, n) 
+function recursiveComma(str, buff, i, j, n, result = []) 
 { 
-    if (i == n) 
-    { 
+    if (i == n) { 
         buff[j] = ''; 
         result.push(buff.join(''));
         return; 
-    }
+    } else {
   
     buff[j] = str[i]; 
-    recursiveComma(str, buff, i + 1, j + 1, n); 
+    recursiveComma(str, buff, i + 1, j + 1, n, result); 
   
     buff[j] = '.'; 
     buff[j+1] = str[i]; 
   
-    recursiveComma(str, buff, i + 1 , j + 2, n); 
-
+    recursiveComma(str, buff, i + 1 , j + 2, n, result); 
+    }
+    return result;
 } 
    
 function processRecursive(str) 
@@ -31,7 +29,8 @@ function processRecursive(str)
   
     buf[0] = str[0]; 
   
-    recursiveComma(str, buf, 1, 1, n); 
+    const res = recursiveComma(str, buf, 1, 1, n);
+    console.log(res); 
 } 
 
 const rl = readline.createInterface({
@@ -45,6 +44,5 @@ const rl = readline.createInterface({
     processRecursive(string);
     console.log((process.memoryUsage().heapUsed - mem) / 1024 / 1024);
     console.timeEnd();
-    console.log(result);
     rl.close();
   });
