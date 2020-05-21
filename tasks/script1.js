@@ -7,16 +7,16 @@ function loopComma(str)
     let result = [];  
     for (let counter = 0; counter < opsize; counter++)  
     {         
-        let temp = '';
-        
+        let temp = [];
+
         for (let j = 0; j < n; j++)  
         { 
-            temp += str[j];
+            temp.push(str[j]);
 
             if (counter & (1 << j)) 
-            temp += '.'; 
+            temp.push('.'); 
         }
-        result.push(temp);  
+        result.push(temp.join(''));  
     } 
     console.log(result);
 } 
