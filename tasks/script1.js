@@ -11,12 +11,12 @@ function loopComma(str)
         
         for (let j = 0; j < n; j++)  
         { 
-            temp.push(str[j]);
+            temp += str[j];
 
             if (counter & (1 << j)) 
-            temp.push('.'); 
+            temp += '.'; 
         } 
-        console.log(temp.join().replace( /,/g, ''));
+        console.log(temp);
     } 
 } 
 

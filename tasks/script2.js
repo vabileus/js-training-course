@@ -5,7 +5,7 @@ function recursiveComma(str, buff, i, j, n)
     if (i == n) 
     { 
         buff[j] = ''; 
-        console.log(buff.join().replace( /,/g, ''));
+        console.log(buff.join(''));
         return; 
     } 
   
