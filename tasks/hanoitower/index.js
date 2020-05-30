@@ -36,8 +36,12 @@ let success = document.getElementsByClassName("success")[0];
 let btns = document.querySelectorAll("button");
 
 const solve = () => {
-  hanoi(columns.c1.length, columns.c1, columns.c2, columns.c3);
-  console.log(moves);
+  hanoiIterate();
+  columns.c3.reverse();
+  render();
+  success.style.opacity = 1;
+  document.getElementById("moves").textContent =
+    "You win🏆 Moves: " + (Math.pow(2, columns.c3.length) - 1);
 };
 
 const start = () => {
@@ -87,15 +91,63 @@ const check = (from, to) => {
   }
 };
 
+const moveCheckRec = (numberOfDisc, from, to) => {
+  moves.push({
+    disk: numberOfDisc,
+    from: from,
+    to: to,
+  });
+};
+
+const moveCheckItr = (count) => {
+  count++;
+};
+
 const hanoi = (numberOfDisc, from, buf, to) => {
   if (numberOfDisc > 0) {
     hanoi(numberOfDisc - 1, from, to, buf);
     move(from, to);
-    moves.push({
-      disk: numberOfDisc,
-      from: from,
-      to: to,
-    });
+    moveCheck(numberOfDisc, from, to);
     hanoi(numberOfDisc - 1, buf, from, to);
   }
+};
+
+const hanoiIterate = () => {
+  let stack = [columns.c1.reverse(), columns.c2, columns.c3];
+
+  const numberOfDisc = columns.c1.length;
+
+  let x = numberOfDisc % 2 != 0 ? 2 : 1;
+  let count = Math.pow(2, numberOfDisc) - 1;
+  let firstColumn = 0;
+
+  console.table(stack);
+
+  while (count != 0) {
+    stack[(firstColumn + x) % 3].unshift(stack[firstColumn].shift());
+    firstColumn = (firstColumn + x) % 3;
+    console.table(stack);
+    count--;
+
+    if (count !== 0) {
+      if (
+        stack[(firstColumn + 1) % 3].length === 0 ||
+        (stack[(firstColumn + 2) % 3].length !== 0 &&
+          stack[(firstColumn + 2) % 3][0] < stack[(firstColumn + 1) % 3][0])
+      ) {
+        stack[(firstColumn + 1) % 3].unshift(
+          stack[(firstColumn + 2) % 3].shift()
+        );
+        console.table(stack);
+      } else {
+        stack[(firstColumn + 2) % 3].unshift(
+          stack[(firstColumn + 1) % 3].shift()
+        );
+        console.table(stack);
+      }
+      count--;
+    }
+  }
+
+  console.table(stack);
 };
